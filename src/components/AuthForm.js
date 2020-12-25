@@ -13,12 +13,11 @@ const AuthForm = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            let data;
             if (newAccount) {
-                data = await authService.createUserWithEmailAndPassword(email, password);
+                await authService.createUserWithEmailAndPassword(email, password);
                 setNewAccount(false);
             } else {
-                data = await authService.signInWithEmailAndPassword(email, password);
+                await authService.signInWithEmailAndPassword(email, password);
                 setNewAccount(false);
             }
         } catch (error) {
@@ -40,7 +39,7 @@ const AuthForm = () => {
         <form onSubmit={onSubmit} className="container">
             <input name="email" type="email" placeholder="email" required value={email} onChange={onChange} className="authInput"/>
             <input name="password" type="password" placeholder="Password" required value={password} onChange={onChange} className="authInput" />
-            <input type="submit" value="로그인" value={newAccount ? "Create Account" : "Log In"} className="authInput authSubmit"/>
+            <input type="submit" value={newAccount ? "Create Account" : "Log In"} className="authInput authSubmit"/>
         </form>
         {error && <span className="authError">{error}</span>}
         <span onClick={toggleAccount} className="authSwitch">{newAccount ? "Sign in" : "create Account"}</span>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {firebaseInstance, authService} from "fbase";
 import AuthForm from "components/AuthForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +13,7 @@ const Auth = () => {
             provider = new firebaseInstance.auth.GoogleAuthProvider();
         }
 
-        const data = await authService.signInWithPopup(provider);
+        await authService.signInWithPopup(provider);
     }
 
     return (

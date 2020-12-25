@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { authService, dbService } from "fbase";
+import React, { useState } from "react";
+import { authService } from "fbase";
 import { useHistory } from "react-router-dom";
 
-export default ({ userObj, refreshUser }) => {
+const Profile = ({ userObj, refreshUser }) => {
     const history = useHistory();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
@@ -10,17 +10,6 @@ export default ({ userObj, refreshUser }) => {
         authService.signOut();
         history.push("/");
     }
-
-    const getMyNweets = async () => {
-        const nweets = await dbService.collection("nweets")
-            .where("creatorId", "==", userObj.uid)
-            .orderBy("createdAt", "desc")
-            .get();
-    }
-
-    useEffect(() => {
-        getMyNweets();
-    });
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -55,3 +44,5 @@ export default ({ userObj, refreshUser }) => {
 
     );
 }
+
+export default Profile;
